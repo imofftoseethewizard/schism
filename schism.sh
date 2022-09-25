@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 #
 # Copyright 2018 Google LLC
 #
@@ -14,17 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Get the directory containing this script. Thanks to
-# https://gist.github.com/TheMengzor/968e5ea87e99d9c41782
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+# --experimental-modules \
 
-${NODE-node} --experimental-modules \
-             --experimental-wasm-anyref \
+$SCHISM_NODE --experimental-wasm-anyref \
              --experimental-wasm-return-call \
-             $DIR/run-schism.mjs "$@"
+             $SCHISM_ROOT/run-schism.mjs "$@"

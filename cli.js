@@ -1,9 +1,6 @@
-// This file is necessary to be CommonJS because meow depends on `module.parent`
-// which doesn't exist if the parent is an ES module.
+import meow from 'meow'
 
-const meow = require('meow');
-
-const cli = meow(`
+export const cli = meow(`
   Usage
     $ schism <input>
 
@@ -13,6 +10,7 @@ const cli = meow(`
     -o, --out [out.wasm]  Specify a file to write the wasm to
     --stage [0]           Specify which stage compiler to use
 `, {
+  importMeta: import.meta,
   flags: {
     out: {
       type: 'string',
@@ -25,5 +23,3 @@ const cli = meow(`
     }
   }
 });
-
-module.exports = cli;

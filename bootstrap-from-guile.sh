@@ -25,4 +25,4 @@
 #
 #   ./bootstrap-from-guile.sh foo.wasm bar.ss
 
-exec ${GUILE-guile} ./bootstrap-from-guile.scm "$@"
+exec $SCHISM_GUILE ./bootstrap-from-guile.scm "$@"
