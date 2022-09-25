@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/bash
 #
 # Copyright 2018 Google LLC
 #
@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Get the current directory. Thanks to 
+# Get the directory containing this script. Thanks to
 # https://gist.github.com/TheMengzor/968e5ea87e99d9c41782
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
