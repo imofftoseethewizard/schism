@@ -16,6 +16,6 @@
 
 # --experimental-modules \
 
-$SCHISM_NODE --experimental-wasm-anyref \
-             --experimental-wasm-return-call \
-             $SCHISM_ROOT/run-schism.mjs "$@"
+node --experimental-wasm-anyref \
+     --experimental-wasm-return-call \
+     $SCHISM_ROOT/run-schism.mjs "$@"

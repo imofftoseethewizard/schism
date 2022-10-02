@@ -51,15 +51,46 @@ restrictions.
 See the `docs` directory for more information about how various
 features are implemented.
 
+## History
+
+2022 Sep Pat Lasswell forked from schism-lang/schism and wrote this history.
+
 ## Current Status and Next Steps
 
-The compiler is self-hosting! Now the goal is to make a more complete
+Currently the bootstrap works with Guild2.x, but not Guile 3.0. The compiled
+wasm module will run in node 14, but no later versions.
+
+### Tooling
+
+* Reorganize files and directories
+
+* Specify and implement a new cli
+    use yargs
+    * -I/--compiler-image: path, defaults to $SCHISM/lib/compiler.wasm
+    * -b/--bootstrap: flag, incompatible with -I/--compiler-image
+    * -e/--evaluate: scheme expr
+    * -R/--runtime: path to directory containing runtime files, defaults to $SCHISM/runtimes/node
+
+### Language
+
+The compiler is self-hosting. Now the goal is to make a more complete
 language. Some of the big missing features are:
 
 * Variable length argument lists
 * Macros
 * Support for multiple files and modules
 * Ports
+
+### Playground
+
+Embody as an electon app with a REPL.
+
+### Development Environment
+
+Create dockerfiles for bootstrapping and runtimes
+
+* bootstrap guile 2.2 (3.0 doesn't work)
+* runtime node 14 (>14 don't work)
 
 ## Testing
 
