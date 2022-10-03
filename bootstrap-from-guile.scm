@@ -12,8 +12,8 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(add-to-load-path ".")
-(add-to-load-path "./lib")
+(add-to-load-path (cadr (program-arguments)))
+(display %load-path)
 (eval-when (expand load compile)
   (set! %load-extensions (cons ".ss" %load-extensions)))
 
@@ -24,23 +24,23 @@
 ;; Guile's make-symbol has this property; Guile's gensym does not.  Use
 ;; make-symbol as gensym, then.
 ;;
-(define-module (%schism-runtime)
-  #:re-export ((make-symbol . %make-gensym)
-               (file-exists? . %file-exists?))
-  #:export (%open-as-stdin))
-(define (%open-as-stdin filename)
-  (set-current-input-port (open-file filename "r")))
+;; (define-module (%schism-runtime)
+;;   #:re-export ((make-symbol . %make-gensym)
+;;                (file-exists? . %file-exists?))
+;;   #:export (%open-as-stdin))
+;; (define (%open-as-stdin filename)
+;;   (set-current-input-port (open-file filename "r")))
 
-(define-module (bootstrap)
-  #:use-module (schism compiler))
+;; (define-module (bootstrap)
+;;   #:use-module (schism compiler))
 
-(define* (main #:optional (out "schism-stage0.wasm") (in "schism/compiler.ss"))
-  (with-output-to-file out
-    (lambda ()
-      ;; Schism uses write-char to write bytes, so install the
-      ;; encoding that ensures that writing (integer->char C) writes
-      ;; the byte C, for C < 256.
-      (set-port-encoding! (current-output-port) "ISO-8859-1")
-      (with-input-from-file in compile-stdin->stdout))))
+;; (define* (main #:optional (out "schism-stage0.wasm") (in "schism/compiler.ss"))
+;;   (with-output-to-file out
+;;     (lambda ()
+;;       ;; Schism uses write-char to write bytes, so install the
+;;       ;; encoding that ensures that writing (integer->char C) writes
+;;       ;; the byte C, for C < 256.
+;;       (set-port-encoding! (current-output-port) "ISO-8859-1")
+;;       (with-input-from-file in compile-stdin->stdout))))
 
-(apply main (cdr (program-arguments)))
+;(apply main (cdr (program-arguments)))

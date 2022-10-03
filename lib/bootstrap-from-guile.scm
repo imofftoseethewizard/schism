@@ -12,8 +12,9 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(add-to-load-path ".")
-(add-to-load-path "./lib")
+(add-to-load-path (cadr (program-arguments)))
+(display %load-path) (newline)
+
 (eval-when (expand load compile)
   (set! %load-extensions (cons ".ss" %load-extensions)))
 
@@ -23,7 +24,7 @@
 ;;
 ;; Guile's make-symbol has this property; Guile's gensym does not.  Use
 ;; make-symbol as gensym, then.
-;;
+
 (define-module (%schism-runtime)
   #:re-export ((make-symbol . %make-gensym)
                (file-exists? . %file-exists?))
@@ -35,6 +36,8 @@
   #:use-module (schism compiler))
 
 (define* (main #:optional (out "schism-stage0.wasm") (in "schism/compiler.ss"))
+  (display in) (newline)
+  (display out) (newline)
   (with-output-to-file out
     (lambda ()
       ;; Schism uses write-char to write bytes, so install the
@@ -43,4 +46,4 @@
       (set-port-encoding! (current-output-port) "ISO-8859-1")
       (with-input-from-file in compile-stdin->stdout))))
 
-(apply main (cdr (program-arguments)))
+(apply main (cddr (program-arguments)))

@@ -1,44 +1,44 @@
 {
-  "name": "schism-scheme",
-  "version": "0.0.2",
-  "description": "A self-hosting Scheme to WebAssembly compiler",
-  "scripts": {
-    "test": "./bin/run-tests.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/imofftoseethewizard/schism.git"
-  },
-  "keywords": [
-    "WebAssembly",
-    "wasm",
-    "Scheme",
-    "compiler"
-  ],
-  "author": "Eric Holk <eric.holk@gmail.com>",
-  "contributors": [
-    "Andy Wingo <wingo@igalia.com>",
-    "Christopher Lemmer Webber <cwebber@dustycloud.org>",
-    "jitwit <jrn@bluefarm.ca>",
-    "Jonathan Leonard <johanatan@users.noreply.github.com>",
-    "Matthew Phillips <phillipsm2@gmail.com>",
-    "Pat Lasswell <imofftoseethewizard@gmail.com>",
-    "Rick Button <rick@button.dev>",
-    "stereobooster <stereobooster@gmail.com>"
-  ],
-  "license": {
-    "type": "Apache-2.0",
-    "url": "https://opensource.org/licenses/apache2.0.php"
-  },
-  "bugs": {
-    "url": "https://github.com/imofftoseethewizard/schism/issues"
-  },
-  "homepage": "https://github.com/imofftoseethewizard/schism#readme",
-  "bin": {
-    "schism": "./bin/schism.js"
-  },
-  "dependencies": {
-    "yargs": "17.5.1"
-  },
-  "type": "module"
+    "name": "schism-scheme",
+    "version": "0.0.2",
+    "description": "A self-hosting Scheme to WebAssembly compiler",
+    "scripts": {
+        "test": "./bin/run-tests.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/imofftoseethewizard/schism.git"
+    },
+    "keywords": [
+        "WebAssembly",
+        "wasm",
+        "Scheme",
+        "compiler"
+    ],
+    "author": "Eric Holk <eric.holk@gmail.com>",
+    "contributors": [
+        "Andy Wingo <wingo@igalia.com>",
+        "Christopher Lemmer Webber <cwebber@dustycloud.org>",
+        "jitwit <jrn@bluefarm.ca>",
+        "Jonathan Leonard <johanatan@users.noreply.github.com>",
+        "Matthew Phillips <phillipsm2@gmail.com>",
+        "Pat Lasswell <imofftoseethewizard@gmail.com>",
+        "Rick Button <rick@button.dev>",
+        "stereobooster <stereobooster@gmail.com>"
+    ],
+    "license": {
+        "type": "Apache-2.0",
+        "url": "https://opensource.org/licenses/apache2.0.php"
+    },
+    "bugs": {
+        "url": "https://github.com/imofftoseethewizard/schism/issues"
+    },
+    "homepage": "https://github.com/imofftoseethewizard/schism#readme",
+    "bin": {
+        "schism": "./bin/schism.js"
+    },
+    "dependencies": {
+        "yargs": "17.5.1"
+    },
+    "type": "module"
 }

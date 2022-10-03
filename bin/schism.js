@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --experimental-wasm-anyref --experimental-wasm-return_call
 
 //
 // Copyright 2022 Pat Lasswell <imofftoseethewizard@gmail.com>
@@ -21,6 +21,7 @@ import util from 'node:util'
 const asyncExec = util.promisify(exec)
 
 import path from 'path'
+import fs from 'fs'
 
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
@@ -45,10 +46,8 @@ Usage: $0 [options] [file ...]`)
           {
               'alias': 'bootstrap',
               'conflicts': 'compiler-image',
-              'coerce': path.resolve,
-              'default': defaultCompilerSource,
-              'description': 'Path to schism compiler source for Guile bootstrap. Inhibits the REPL.',
-              'type': 'string',
+              'description': 'Bootstrap compiler from source using Guile. Inhibits the REPL.',
+              'type': 'boolean',
           })
       .option(
           'I',
@@ -100,7 +99,7 @@ Usage: $0 [options] [file ...]`)
           })
       .nargs(
           {
-              'bootstrap': 1,
+              'bootstrap': 0,
               'compiler-image': 1,
               'evaluate': 1,
               'interactive': 0,
@@ -145,26 +144,34 @@ function compilerOutputFilePath(sourcePath) {
 
 async function bootstrapCompiler() {
     const guileBootstrapShim = path.join(schismLib, 'bootstrap-from-guile.scm')
-    const compilerSource = path.join(schismLib, 'compiler.ss')
+    const compilerSource = path.join(schismLib, 'schism', 'compiler.ss')
     const wasmOut = compilerOutputFilePath(compilerSource)
 
-    const cmd = `guile-2.2 ${guileBootstrapShim} ${wasmOut} ${compilerSource}`
+    const cmd = `guile-2.2 ${guileBootstrapShim} ${schismLib} ${wasmOut} ${compilerSource}`
 
     console.log(cmd)
-    const { stdout, stderr } = await asyncExec(cmd);
+    const { stdout, stderr } = await asyncExec(cmd)
 
     if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
+        console.log(`stderr: ${stderr}`)
     }
-    console.log(`stdout: ${stdout}`);
+    console.log(`stdout: ${stdout}`)
+
+    return wasmOut
 }
 
+const compilerWasmPath = argv.bootstrap ? await bootstrapCompiler() : argv.compilerImage
+const compilerWasm = fs.readFileSync(compilerWasmPath)
 
-if (argv.bootstrap) {
-    await bootstrapCompiler();
-} else {
-    // open file
+const filesystem = (await import(path.join(schismLib, 'rt', 'node', 'filesystem.js')))['default']
+const Schism = await import(path.join(schismLib, 'rt', 'node', 'rt.mjs'))
+
+const runtime = { filesystem }
+const engine = new Schism.Engine(runtime)
+const schism = await engine.loadWasmModule(compilerWasm)
+
+async function compileModule(source) {
+    engine.setCurrentInputPort(bytes)
+    schism.exports['compile-stdin->stdout']()
+    return new Uint8Array(engine.output_data)
 }
-
-console.log(argv)
